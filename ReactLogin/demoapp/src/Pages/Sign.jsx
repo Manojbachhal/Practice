@@ -1,70 +1,102 @@
-import React from 'react'
-import { Box, Grid, TextField } from '@mui/material'
-import { Button } from '@mui/material'
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ic_user from './images/ic_user.svg'
-import CircularProgress from '@mui/material/CircularProgress';
-import zaperon_logo from './images/zaperon_logo.png'
+import axios from 'axios'
 
-function Sign() {
+
+
+
+const theme = createTheme();
+
+export default function Signin() {
+    const LoginCall = async (data) => {
+        return axios.post('http://localhost:4000/login', data, {
+            withCredentials: true
+        }).then((response) => response.data)
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        let obj = {
+            email: data.get('email'),
+            password: data.get('password'),
+        };
+
+        LoginCall(obj)
+    };
+
     return (
-        <>
-
-
-            <Box sx={{ margin: 'auto', mt: '5%' }} width="35%" xs={12} sm={6}>
-                {/* <Box  >
-
-                    <img src={ic_user} alt="" />
-                    <CircularProgress />
-
-                </Box> */}
-
-
-
-                <div style={{ backgroundColor: '#EFEFEF', borderRadius: '50%', margin: 'auto', width: '17%', padding: '20px 25px' }} >
-                    <img src={ic_user} alt="" style={{ width: '100%' }} />
-                </div>
-
-                <p>Let's connect to your workspace. <br />Please enter your email to continue.</p>
-
-                <form >
-                    <Grid >
-                        <TextField fullWidth size="small" id="outlined-basic" label="Email Address" variant="outlined"
-                        />
-                    </Grid>
-                    <br />
-                    <Grid >
-                        <TextField fullWidth size="small" id="standard-password-input" label="Password" type="password" autoComplete="current-password"
-                        />
-                    </Grid>
-                    {/* <Grid> */}
-                    <p style={{ textAlign: 'end', color: '#003FB9', fontWeight: 'bold' }}>Forgot Password</p>
-
-                    {/* </Grid> */}
-
-
-                    <Button variant="contained" color="primary" style={{ width: '100%' }} >
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'gray', w: '50%', width: ['30px', '40px', '70px'], height: ['30px', '40px', '70px'] }} src={ic_user}>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
                         Sign in
-                    </Button>
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
 
-                </form>
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                        <Grid item xs sx={{ textAlign: 'end' }}>
+                            <Link href="#" variant="body2" >
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        {/* <Grid container> */}
 
-            </Box >
-            <footer sx={{ mt: '10%' }}>
-
-                <Box style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10%' }}>
-                    <Box style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <p style={{ color: '#A2A2A2' }}>Powered By</p>
-                        <img src={zaperon_logo} alt='logo' style={{ width: '40%', height: '40%', alignSelf: 'center' }} />
-                    </Box>
-                    <Box style={{ color: '#003FB9', display: 'flex', justifyContent: 'space-around', width: '20%' }}>
-                        <p>Need Help?</p>
-                        <p >Privacy Policy <span style={{ color: '#A2A2A2' }}>&</span> Terms</p>
+                        <Grid item >
+                            <Link href="#" variant="body2" >
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                        {/* </Grid> */}
                     </Box>
                 </Box>
-            </footer >
-        </>
-
-    )
+            </Container>
+        </ThemeProvider>
+    );
 }
-
-export default Sign
