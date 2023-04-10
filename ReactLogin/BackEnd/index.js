@@ -44,7 +44,7 @@ app.post("/login", async (req, res) => {
       res.cookie("userEmail", user.data.email, {
         httpOnly: true,
       });
-      res.redicet("/Home");
+      // res.redirect("http://localhost:3000/home");
       console.log(user);
       res.send(user);
     }

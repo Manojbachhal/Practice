@@ -2,7 +2,8 @@ import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
+import zaperon_logo from './images/zaperon_logo.png'
+import { Box } from '@mui/material';
 
 
 
@@ -30,8 +31,18 @@ export default function StickyFooter() {
         <div className={classes.root}>
 
             <footer >
-                <Container maxWidth="sm">
-                    <Typography variant="body1">My sticky footer can be found here.</Typography>
+                <Container sx={{ display: ['grid', 'grid', 'flex'], justifyContent: ['center', 'center', 'space-between'], }} >
+                    <Box sx={{ display: ['grid', 'grid', 'flex'], justifyContent: ['center', 'center', 'space-evenly'] }} >
+                        <Typography variant="body1">Powered By</Typography>
+                        <img src={zaperon_logo} alt="zaoeron" style={{ width: '30%', height: '80%' }} />
+
+                    </Box>
+                    <Box sx={{ display: ['grid', 'grid', 'flex'], justifyContent: ['center', 'center', 'space-evenly'] }}>
+                        <Typography variant="body1">Need Help?</Typography>
+
+                        <Typography variant="body1">Privacy Policy & Terms</Typography>
+
+                    </Box>
                 </Container>
             </footer>
         </div>

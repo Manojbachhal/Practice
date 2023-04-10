@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ic_user from './images/ic_user.svg'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Authctx } from '../Context/Authcontext';
 
 
 
@@ -18,10 +21,26 @@ import axios from 'axios'
 const theme = createTheme();
 
 export default function Signin() {
+    const { login, setLogin, setUser } = useContext(Authctx)
+    const navigate = useNavigate();
+
     const LoginCall = async (data) => {
-        return axios.post('http://localhost:4000/login', data, {
-            withCredentials: true
-        }).then((response) => response.data)
+        try {
+            return axios.post('http://localhost:4000/login', data, {
+                withCredentials: true
+            }).then((response) => response.data).then((d) => {
+                console.log(d)
+                if (d.Token) {
+                    setLogin(!login)
+                    setUser(d.data.email)
+                    navigate('/home')
+                }
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -89,7 +108,7 @@ export default function Signin() {
                         {/* <Grid container> */}
 
                         <Grid item >
-                            <Link href="#" variant="body2" >
+                            <Link to='/signup' variant="body2" >
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
