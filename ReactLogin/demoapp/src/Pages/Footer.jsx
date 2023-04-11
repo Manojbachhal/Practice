@@ -24,17 +24,18 @@ export default function StickyFooter() {
             <footer >
                 <Container sx={{ display: ['grid', 'grid', 'flex'], justifyContent: ['center', 'center', 'space-between'] }} >
                     <Box sx={{ display: ['grid', 'grid', 'flex'], justifyContent: ['center', 'center', 'space-evenly'] }} >
-                        <Typography variant="body1" style={{ color: '#ACACAC', marginRight: '5px' }}>Powered By</Typography>
-                        <Grid item sm={12} xs={12}>
-                            <img src={zaperon_logo} style={{ height: "4vh", width: "15vh" }} />
+                        <Typography variant="body1" style={{ color: '#ACACAC' }}>Powered By</Typography>
+                        <Grid item sm={12} xs={12} >
+                            <img src={zaperon_logo} style={{ width: '90%', height: '40%' }} />
+                            {/* style={{ height: "7vh", width: "30vh" }} */}
+                            {/* , margin: '0px 15px 15px 15px' */}
                         </Grid>
-                        {/* <img src={zaperon_logo} alt="zaoeron" style={{ width: '30%', height: '80%' }} /> */}
 
                     </Box>
                     <Box sx={{ display: ['grid', 'grid', 'flex'], justifyContent: ['center', 'center', 'space-evenly'] }}>
-                        <Typography variant="body1" sx={{ color: '#003FB9' }}>Need Help? </Typography>
+                        <Typography variant="body1" sx={{ color: '#003FB9', margin: { sm: '15px', md: '0px', lg: '0px' } }} >Need Help? </Typography>
 
-                        <Typography variant="body1" sx={{ color: '#003FB9' }}>Privacy Policy <span style={{ color: '#ACACAC' }}> & </span> Terms</Typography>
+                        <Typography variant="body1" sx={{ color: '#003FB9', marginLeft: { sm: '0', md: '0px', lg: '15px' } }}>Privacy Policy <span style={{ color: '#ACACAC' }}> & </span> Terms</Typography>
 
                     </Box>
                 </Container>
