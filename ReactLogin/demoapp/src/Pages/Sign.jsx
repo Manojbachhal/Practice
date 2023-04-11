@@ -29,7 +29,7 @@ export default function Signin() {
 
     const LoginCall = async (data) => {
         try {
-            return axios.post('http://localhost:4000/login', data, {
+            axios.post('http://localhost:4000/login', data, {
                 withCredentials: true
             }).then((response) => response.data).then((d) => {
                 console.log(d)
@@ -116,9 +116,11 @@ export default function Signin() {
                 >
                     <Avatar sx={{ m: 1, bgcolor: '#EFEFEF', w: '50%', width: ['30px', '40px', '70px'], height: ['30px', '40px', '70px'] }} src={ic_user}>
                     </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
+
+                    <Typography component="h1" variant="p">
+                        Welcome!
                     </Typography>
+                    <p>Let's connect to your workspace.<br />Please enter your email to continue.</p>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
