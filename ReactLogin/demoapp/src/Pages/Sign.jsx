@@ -14,6 +14,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { Authctx } from '../Context/Authcontext';
+import { useState } from 'react';
 
 
 
@@ -23,6 +24,8 @@ const theme = createTheme();
 export default function Signin() {
     const { login, setLogin, setUser } = useContext(Authctx)
     const navigate = useNavigate();
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setpassError] = useState(false);
 
     const LoginCall = async (data) => {
         try {
@@ -30,6 +33,7 @@ export default function Signin() {
                 withCredentials: true
             }).then((response) => response.data).then((d) => {
                 console.log(d)
+
                 if (d.Token) {
                     setLogin(!login)
                     setUser(d.data.email)
@@ -42,6 +46,9 @@ export default function Signin() {
         }
 
     }
+    const checkpass = (da) => {
+        return da.length < 7;
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -50,8 +57,50 @@ export default function Signin() {
             password: data.get('password'),
         };
 
-        LoginCall(obj)
+        let email = data.get('email')
+
+        let checkpassword = checkpass(data.get('password'));
+        setpassError(checkpassword)
+        console.log(checkpassword)
+
+        let check = ""; let checkat = false; let checkdot = 0;
+
+        for (let i = 0; i < email.length; i++) {
+
+            if (email[i] == '@' && i > 0) {
+                checkat = true;
+            }
+            if (check == ".com" && checkat) {
+                break;
+            }
+
+            if (email[i] == '.' && checkdot < 4) {
+                checkdot++;
+                check = "";
+                check += email[i];
+            } else if (checkdot > 0 && checkdot < 4) {
+                checkdot++;
+                check += email[i];
+            }
+            if (check.length == 4 && check != ".com") {
+                checkdot = 0;
+                check = "";
+            }
+
+        }
+        if (check != ".com") {
+            setEmailError(true)
+        } else {
+            setEmailError(false)
+        }
+
+        if (!emailError && !passwordError) {
+
+            LoginCall(obj)
+        }
+
     };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -65,7 +114,7 @@ export default function Signin() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'gray', w: '50%', width: ['30px', '40px', '70px'], height: ['30px', '40px', '70px'] }} src={ic_user}>
+                    <Avatar sx={{ m: 1, bgcolor: '#EFEFEF', w: '50%', width: ['30px', '40px', '70px'], height: ['30px', '40px', '70px'] }} src={ic_user}>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
@@ -80,20 +129,25 @@ export default function Signin() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            error={emailError}
+                            helperText={emailError ? 'Please enter a valid email' : ' '}
 
                         />
                         <TextField
                             margin="normal"
-                            required
+                            required={true}
                             fullWidth
                             name="password"
                             label="Password"
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            error={passwordError}
+                            helperText={passwordError ? 'Password must be 8 character long' : ' '}
+
                         />
                         <Grid item xs sx={{ textAlign: 'end' }}>
-                            <Link href="#" variant="body2" >
+                            <Link href="#" variant="body2" style={{ textDecoration: 'none', color: '#003FB9' }} >
                                 Forgot password?
                             </Link>
                         </Grid>
@@ -108,7 +162,7 @@ export default function Signin() {
                         {/* <Grid container> */}
 
                         <Grid item >
-                            <Link to='/signup' variant="body2" >
+                            <Link to='/signup' variant="body2" style={{ textDecoration: 'none', color: '#003FB9' }}>
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

@@ -12,7 +12,7 @@ function Allroutes() {
             <Routes>
                 <Route path='/home' element={login ? <Home /> : <Sign />} />
                 <Route path='/' element={!login ? <Sign /> : <Home />} />
-                <Route path='/signup' element={<Signup />} />
+                <Route path='/signup' element={!login ? <Signup /> : <Home />} />
             </Routes>
         </div>
     )

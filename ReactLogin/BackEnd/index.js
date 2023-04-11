@@ -12,13 +12,13 @@ app.use(
     credentials: true,
   })
 );
-app.use(
-  cookieSession({
-    name: "session",
-    keys: "abscd#fs@q2",
-    maxAge: 100,
-  })
-);
+// app.use(
+//   cookieSession({
+//     name: "session",
+//     keys: "abscd#fs@q2",
+//     maxAge: 5 * 1000,
+//   })
+// );
 app.listen(4000, async () => {
   await Connection();
   console.log("Listing to http://localhost:4000");
@@ -39,10 +39,11 @@ app.post("/login", async (req, res) => {
       });
     } else {
       res.cookie("token", user.Token, {
-        httpOnly: true,
+        expires: new Date(Date.now() + 5000),
       });
       res.cookie("userEmail", user.data.email, {
-        httpOnly: true,
+        expires: new Date(Date.now() + 5000),
+        // httpOnly: true,
       });
       // res.redirect("http://localhost:3000/home");
       console.log(user);

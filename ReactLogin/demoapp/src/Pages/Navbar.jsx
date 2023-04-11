@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 function Navbar() {
     return (
-        <div>
-            <Link to='/' >Login</Link>
-            <Link to='/home' >Home</Link>
-            <Link to='/signup' >Signup</Link>
+        <div style={{ textAlign: 'end', margin: '20px 30px' }}>
+            <Link to='/' style={{ textDecoration: 'none', color: '#003FB9', padding: '10px' }}>Login</Link>
+            <Link to='/home' style={{ textDecoration: 'none', color: '#003FB9', padding: '10px' }}>Home</Link>
+            <Link to='/signup' style={{ textDecoration: 'none', color: '#003FB9', padding: '10px' }} >Signup</Link>
         </div>
     )
 }
