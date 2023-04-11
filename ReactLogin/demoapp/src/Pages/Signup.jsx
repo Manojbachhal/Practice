@@ -93,8 +93,7 @@ export default function SignUp() {
         } else {
             setEmailError(false)
         }
-        if (!emailError && !passwordError) {
-
+        if (!emailError && data.get('password').length >= 7) {
             signUpCall(obj)
         }
         event.currentTarget.reset();

@@ -39,10 +39,10 @@ app.post("/login", async (req, res) => {
       });
     } else {
       res.cookie("token", user.Token, {
-        expires: new Date(Date.now() + 5000),
+        expires: new Date(Date.now() + 15000),
       });
       res.cookie("userEmail", user.data.email, {
-        expires: new Date(Date.now() + 5000),
+        expires: new Date(Date.now() + 15000),
         // httpOnly: true,
       });
       // res.redirect("http://localhost:3000/home");
